@@ -33,7 +33,7 @@ jobs:
         uses: GabrielBB/xvfb-action@v1
         with:
           run: |
-            mvn -B install -P release \
+            mvn -f ./infinitest/pom.xml -B install -P release \
               -Dkeystore-password=${{ secrets.KEYSTORE_PASSWORD }}
       - name: Copy the Eclipse plugin to the website
         run: cp -r ./infinitest/infinitest-eclipse/target/update_site/* ./website
