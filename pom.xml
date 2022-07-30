@@ -67,12 +67,10 @@
 							</execution>
 						</executions>
 						<configuration>
-							<!-- The keystore is at the root of the parent module -->
-							<keystore>../keystore-test.jks</keystore>
+							<keystore>${keystore-file}</keystore>
 							<alias>infinitest</alias>
 							<storepass>${keystore-password}</storepass>
 							<keypass>${keystore-password}</keypass>
-							<signedjar>signed.jar</signedjar>
 							<removeExistingSignatures>true</removeExistingSignatures>
 							<includes>
 								<include>**/*.jar</include>
