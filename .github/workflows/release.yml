@@ -39,7 +39,7 @@ jobs:
       - name: Update RSS
         run: |
           ruby ./website/update_rss.rb '${{ github.event.release.tag_name }}' '${{ github.event.release.name }}'
-          rm ./website/ruby update_rss.rb
+          rm ./website/update_rss.rb
       - name: Commit website changes
         if: github.event_name == 'release' && github.event.release.prerelease == false
         uses: EndBug/add-and-commit@v9
