@@ -33,10 +33,11 @@ jobs:
         uses: GabrielBB/xvfb-action@v1
         with:
           run: |
-            mvn -f ./infinitest/pom.xml -B install -P release -Dkeystore-password=${{ secrets.KEYSTORE_PASSWORD }} -Dkeystore-file=../keystore.jks -X
+            mvn -f ./infinitest/pom.xml -B install -P release -Dkeystore-password=${{ secrets.KEYSTORE_PASSWORD }} -Dkeystore-file=../keystore.jks -DskipTests=true
       - name: Copy the Eclipse plugin to the website
         run: cp -r ./infinitest/infinitest-eclipse/target/update_site/* ./website
       - name: Commit website changes
+        if: github.event_name == 'release' && github.event.release.prerelease == false
         uses: EndBug/add-and-commit@v9
         with:
           message: release ${{ github.event.release.tag_name }}
