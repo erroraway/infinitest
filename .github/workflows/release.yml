@@ -38,7 +38,7 @@ jobs:
         run: cp -r ./infinitest/infinitest-eclipse/target/update_site/* ./website
       - name: Update RSS
         run: |
-          ruby ./website/ruby update_rss.rb '${{ github.event.release.tag_name }}' '${{ github.event.release.name }}'
+          ruby ./website/update_rss.rb '${{ github.event.release.tag_name }}' '${{ github.event.release.name }}'
           rm ./website/ruby update_rss.rb
       - name: Commit website changes
         if: github.event_name == 'release' && github.event.release.prerelease == false
