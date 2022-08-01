@@ -36,6 +36,10 @@ jobs:
             mvn -f ./infinitest/pom.xml -B install -P release -Dkeystore-password=${{ secrets.KEYSTORE_PASSWORD }} -Dkeystore-file=../keystore.jks -DskipTests=true
       - name: Copy the Eclipse plugin to the website
         run: cp -r ./infinitest/infinitest-eclipse/target/update_site/* ./website
+      - name: Update RSS
+        run: |
+          ruby ./website/ruby update_rss.rb '${{ github.event.release.tag_name }}' '${{ github.event.release.name }}'
+          rm ./website/ruby update_rss.rb
       - name: Commit website changes
         if: github.event_name == 'release' && github.event.release.prerelease == false
         uses: EndBug/add-and-commit@v9
