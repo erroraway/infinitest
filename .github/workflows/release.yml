@@ -50,8 +50,8 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ./infinitest/infinitest-eclipse/target/infinitest-eclipse-${{ github.event.release.tag_name }}.jar
-          asset_name: infinitest-eclipse-${{ github.event.release.tag_name }}.jar
+          asset_path: ./infinitest/infinitest-eclipse/target/update_site.zip
+          asset_name: infinitest-eclipse-${{ github.event.release.tag_name }}.zip
           asset_content_type: application/zip
       - name: Upload the IntelliJ plugin
         uses: actions/upload-release-asset@v1
@@ -70,9 +70,5 @@ jobs:
         run: |
           ruby ./website/update_rss.rb '${{ github.event.release.tag_name }}' '${{ github.event.release.name }}'
           rm ./website/update_rss.rb
-      - name: Commit website changes
-        if: github.event_name == 'release' && github.event.release.prerelease == false
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: release ${{ github.event.release.tag_name }}
-          cwd: './website/'
+
+      # Skip the part where we commit the website changes for now 
